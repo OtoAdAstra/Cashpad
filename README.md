@@ -6,6 +6,8 @@
   <img src="https://img.shields.io/badge/UIKit%20%2B%20SwiftUI-purple" />
   <img src="https://img.shields.io/badge/MVVM%20+%20Coordinator%20+%20Di%20Container-success" />
   <img src="https://img.shields.io/badge/Combine%20+%20URLSession%20%2B%20Async%2FAwait-red" />
+  <img src="https://img.shields.io/badge/Apple%20Intelligence-white" />
+
 </div>
 
 
