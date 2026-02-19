@@ -54,6 +54,7 @@ Built with a clean, minimal interface and smooth animations, Cashpad makes manag
 - **UIKit** - Core UI framework, viewcontrollers
 - **SwiftUI** - UI components and views
 - **CoreData** - Storing data locally
+- **Apple Inteligence** - AI Overview
 - **Combine** - Reactive data flow and state updates
 - **Haptic Feedback** - Subtle tactile interactions
 
