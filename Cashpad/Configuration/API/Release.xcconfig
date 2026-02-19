@@ -1,0 +1,8 @@
+//
+//  Release.xcconfig
+//  Cashpad
+//
+//  Created by Oto Sharvashidze on 22.01.26.
+//
+
+EXCHANGE_API_KEY = fca_live_qnxObjvkpFCibxSvyNh4g4nFLkzstnNNWOTReol7
