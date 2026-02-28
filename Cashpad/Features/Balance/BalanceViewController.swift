@@ -20,7 +20,7 @@ final class BalanceViewController: UIViewController, UIGestureRecognizerDelegate
     private var chartHostingController: UIHostingController<ChartView>?
     private var transactionsHostingController: UIHostingController<TransactionsView>?
     private let aiOverviewCard = AIOverviewCard()
-    private var chartViewModel: ChartViewModel?
+    private let chartViewModel: ChartViewModel
     
     private let onBack: () -> Void
     private let onExchange: () -> Void
@@ -34,11 +34,13 @@ final class BalanceViewController: UIViewController, UIGestureRecognizerDelegate
     init(
         account: AccountModel,
         viewModel: BalanceViewModel,
+        chartViewModel: ChartViewModel,
         onBack: @escaping () -> Void,
         onExchange: @escaping () -> Void
     ) {
         self.account = account
         self.viewModel = viewModel
+        self.chartViewModel = chartViewModel
         self.onBack = onBack
         self.onExchange = onExchange
         super.init(nibName: nil, bundle: nil)
@@ -139,9 +141,7 @@ final class BalanceViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     private func setupChart() {
-        let chartVM = AppDIContainer.shared.makeChartViewModel(accountId: account.id)
-        self.chartViewModel = chartVM
-        let chartView = ChartView(viewModel: chartVM)
+        let chartView = ChartView(viewModel: chartViewModel)
         let hosting = UIHostingController(rootView: chartView)
         chartHostingController = hosting
 
@@ -166,8 +166,10 @@ final class BalanceViewController: UIViewController, UIGestureRecognizerDelegate
         aiOverviewCard.translatesAutoresizingMaskIntoConstraints = false
         aiOverviewCard.isHidden = true
 
+        guard let chartView = chartHostingController?.view else { return }
+
         NSLayoutConstraint.activate([
-            aiOverviewCard.topAnchor.constraint(equalTo: chartHostingController!.view.bottomAnchor, constant: 8),
+            aiOverviewCard.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: 8),
             aiOverviewCard.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
             aiOverviewCard.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
             aiOverviewCard.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
@@ -232,8 +234,8 @@ final class BalanceViewController: UIViewController, UIGestureRecognizerDelegate
         viewModel.$transactions
             .receive(on: DispatchQueue.main)
             .sink { [weak self] transactions in
-                guard let self, let chartVM = self.chartViewModel else { return }
-                chartVM.reload(with: transactions)
+                guard let self else { return }
+                self.chartViewModel.reload(with: transactions)
             }
             .store(in: &cancellables)
 

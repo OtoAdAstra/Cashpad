@@ -20,7 +20,7 @@ final class BalanceCoordinator: Coordinator {
     init(
         navigationController: UINavigationController,
         account: AccountModel,
-        diContainer: AppDIContainer = .shared
+        diContainer: AppDIContainer
     ) {
         self.navigationController = navigationController
         self.account = account
@@ -31,10 +31,14 @@ final class BalanceCoordinator: Coordinator {
         let balanceViewModel = diContainer.makeBalanceViewModel(
             accountId: account.id
         )
+        let chartViewModel = diContainer.makeChartViewModel(
+            accountId: account.id
+        )
                         
         let vc = BalanceViewController(
             account: account,
             viewModel: balanceViewModel,
+            chartViewModel: chartViewModel,
             onBack: { [weak self] in
                 self?.navigationController.popViewController(animated: true)
                 self?.onFinish?()

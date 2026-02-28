@@ -26,15 +26,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let themeManager = di.makeThemeManager()
         
-        applyTheme(themeManager.theme, to: window)
+        themeManager.theme.apply(to: window)
 
         themeManager.onThemeChange = { [weak window] theme in
             guard let window else { return }
-            applyTheme(theme, to: window)
+            theme.apply(to: window)
         }
         
         let navigationController = UINavigationController()
-        let coordinator = AppCoordinator(navigationController: navigationController)
+        let coordinator = AppCoordinator(navigationController: navigationController, diContainer: di)
         
         coordinator.start()
         

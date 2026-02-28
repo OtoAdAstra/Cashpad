@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import os
 
 final class PersistenceController {
 
@@ -13,16 +14,31 @@ final class PersistenceController {
 
     let container: NSPersistentContainer
 
+    var viewContext: NSManagedObjectContext {
+        container.viewContext
+    }
+
+    private static let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier ?? "Cashpad",
+        category: "CoreData"
+    )
+
     private init() {
         container = NSPersistentContainer(name: "Cashpad")
 
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
-                fatalError("Unresolved Core Data error \(error), \(error.userInfo)")
+                Self.logger.error("Core Data failed to load: \(error), \(error.userInfo)")
             }
         }
 
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    }
+
+    func newBackgroundContext() -> NSManagedObjectContext {
+        let context = container.newBackgroundContext()
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        return context
     }
 }

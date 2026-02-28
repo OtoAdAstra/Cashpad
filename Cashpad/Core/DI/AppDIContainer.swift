@@ -12,7 +12,7 @@ final class AppDIContainer {
 
     static let shared = AppDIContainer()
 
-    private let persistenceController: PersistenceController
+    let persistenceController: PersistenceController
     private let exchangeService: ExchangeServiceProtocol
     private let exchangeCache: ExchangeRateCacheProtocol
     private let themeManager: ThemeManagerProtocol
@@ -20,9 +20,7 @@ final class AppDIContainer {
 
     private init() {
         self.persistenceController = PersistenceController.shared
-        self.exchangeService = ExchangeService(
-            apiKey: AppSecrets.exchangeApiKey
-        )
+        self.exchangeService = ExchangeService(apiKey: AppSecrets.exchangeApiKey ?? "")
         self.exchangeCache = ExchangeRateCache()
         self.themeManager = ThemeManager()
         self.securityService = SecurityService()

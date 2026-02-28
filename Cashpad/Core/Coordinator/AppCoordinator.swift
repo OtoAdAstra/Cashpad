@@ -10,16 +10,19 @@ import UIKit
 final class AppCoordinator: Coordinator {
 
     var navigationController: UINavigationController
+    private let diContainer: AppDIContainer
 
     private var accountsCoordinator: AccountsCoordinator?
 
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, diContainer: AppDIContainer) {
         self.navigationController = navigationController
+        self.diContainer = diContainer
     }
 
     func start() {
         let coordinator = AccountsCoordinator(
-            navigationController: navigationController
+            navigationController: navigationController,
+            diContainer: diContainer
         )
         self.accountsCoordinator = coordinator
         coordinator.start()

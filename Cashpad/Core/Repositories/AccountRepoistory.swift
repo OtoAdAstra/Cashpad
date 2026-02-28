@@ -78,7 +78,7 @@ final class AccountRepository: AccountRepositoryProtocol {
         transaction.id = UUID()
         transaction.amount = amount
         transaction.date = Date()
-        transaction.type = 0
+        transaction.type = TransactionType.income.storedValue
         transaction.account = account
 
         try context.save()

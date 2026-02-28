@@ -13,6 +13,7 @@ final class AIOverviewViewModel: ObservableObject {
     @Published private(set) var overviewText: String = ""
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var isUnavailable: Bool = false
+    @Published private(set) var errorMessage: String?
 
     private let model = SystemLanguageModel.default
 
@@ -29,6 +30,7 @@ final class AIOverviewViewModel: ObservableObject {
 
         isLoading = true
         overviewText = ""
+        errorMessage = nil
 
         let prompt = buildPrompt(
             accountName: accountName,
@@ -48,7 +50,7 @@ final class AIOverviewViewModel: ObservableObject {
             let response = try await session.respond(to: prompt)
             overviewText = response.content
         } catch {
-            overviewText = "Could not generate overview."
+            errorMessage = "Could not generate overview: \(error.localizedDescription)"
         }
 
         isLoading = false

@@ -16,7 +16,7 @@ extension Calendar {
         switch granularity {
         case .day:
             let start = startOfDay(for: date)
-            let end = self.date(byAdding: .day, value: 1, to: start)!
+            let end = self.date(byAdding: .day, value: 1, to: start) ?? start
             return start..<end
         case .week:
             var comps = self.dateComponents(
@@ -25,12 +25,12 @@ extension Calendar {
             )
             comps.weekday = firstWeekday
             let start = self.date(from: comps) ?? startOfDay(for: date)
-            let end = self.date(byAdding: .weekOfYear, value: 1, to: start)!
+            let end = self.date(byAdding: .weekOfYear, value: 1, to: start) ?? start
             return start..<end
         case .year:
             let comps = self.dateComponents([.year], from: date)
-            let start = self.date(from: comps)!
-            let end = self.date(byAdding: .year, value: 1, to: start)!
+            let start = self.date(from: comps) ?? startOfDay(for: date)
+            let end = self.date(byAdding: .year, value: 1, to: start) ?? start
             return start..<end
         }
     }

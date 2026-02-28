@@ -18,7 +18,7 @@ final class AccountsCoordinator: Coordinator {
 
     init(
         navigationController: UINavigationController,
-        diContainer: AppDIContainer = .shared
+        diContainer: AppDIContainer
     ) {
         self.navigationController = navigationController
         self.diContainer = diContainer
@@ -42,7 +42,8 @@ final class AccountsCoordinator: Coordinator {
     private func showBalance(for account: AccountModel) {
         let coordinator = BalanceCoordinator(
             navigationController: navigationController,
-            account: account
+            account: account,
+            diContainer: diContainer
         )
         
         coordinator.onFinish = { [weak self] in

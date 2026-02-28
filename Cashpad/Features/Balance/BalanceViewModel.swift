@@ -43,16 +43,8 @@ final class BalanceViewModel: ObservableObject {
                     searchTarget = note.lowercased()
                 } else {
 
-                    let typeString: String
-                    switch Int(transaction.type) {
-                    case 0:
-                        typeString = TransactionType.income.rawValue
-                    case 1:
-                        typeString = TransactionType.expense.rawValue
-                    default:
-                        typeString = String(describing: transaction.type)
-                    }
-                    searchTarget = typeString.lowercased()
+                    let transactionType = TransactionType(storedValue: transaction.type)
+                    searchTarget = transactionType.rawValue.lowercased()
                 }
                 return searchTarget.contains(query)
             }

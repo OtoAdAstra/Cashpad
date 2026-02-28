@@ -16,7 +16,7 @@ final class ChartViewModel: ObservableObject {
     private let accountRepository: AccountRepositoryProtocol
 
     // MARK: - Published State
-    @Published var selectedFlow: Flow = .expense { didSet { cachedAggregated.removeAll() } }
+    @Published var selectedFlow: TransactionType = .expense { didSet { cachedAggregated.removeAll() } }
     @Published var selectedGranularity: Granularity = .week { didSet { cachedAggregated.removeAll() } }
     @Published var currentAnchorDate: Date = Date() { didSet { cachedAggregated.removeAll() } }
     @Published var selectedTX: Transaction?
@@ -63,7 +63,7 @@ final class ChartViewModel: ObservableObject {
     private let calendar = Calendar.current
 
     private struct PeriodKey: Hashable {
-        let flow: Flow
+        let flow: TransactionType
         let granularity: Granularity
         let anchorDay: Date
     }
@@ -72,10 +72,9 @@ final class ChartViewModel: ObservableObject {
 
     // MARK: - Derived Data
     var filtered: [Transaction] {
-        let type = (selectedFlow == .income) ? 0 : 1
-        return transactions
+        transactions
             .lazy
-            .filter { Int($0.type) == type }
+            .filter { TransactionType(storedValue: $0.type) == self.selectedFlow }
             .sorted { ($0.date ?? Date.distantPast) < ($1.date ?? Date.distantPast) }
     }
 
@@ -113,14 +112,14 @@ final class ChartViewModel: ObservableObject {
     
     var periodIncomeTotal: Double {
         transactions
-            .filter { Int($0.type) == 0 }
+            .filter { TransactionType(storedValue: $0.type) == .income }
             .filter { periodRange.contains($0.date ?? Date()) }
             .reduce(0) { $0 + $1.amount }
     }
     
     var periodExpenseTotal: Double {
         transactions
-            .filter { Int($0.type) == 1 }
+            .filter { TransactionType(storedValue: $0.type) == .expense }
             .filter { periodRange.contains($0.date ?? Date()) }
             .reduce(0) { $0 + abs($1.amount) }
     }
@@ -220,7 +219,7 @@ final class ChartViewModel: ObservableObject {
         }
     }
 
-    static func color(for flow: Flow) -> Color {
+    static func color(for flow: TransactionType) -> Color {
         switch flow {
         case .income: return Color.green
         case .expense: return Color.red

@@ -142,7 +142,7 @@ struct TransactionRow: View {
     }
 
     private var iconView: some View {
-        let isIncome = transaction.type == 0
+        let isIncome = TransactionType(storedValue: transaction.type) == .income
         return Circle()
             .fill(isIncome ? Color.green.opacity(0.15) : Color.red.opacity(0.15))
             .frame(width: 36, height: 36)
@@ -153,7 +153,7 @@ struct TransactionRow: View {
     }
 
     private var labelView: some View {
-        let isIncome = transaction.type == 0
+        let isIncome = TransactionType(storedValue: transaction.type) == .income
         return VStack(alignment: .leading, spacing: 4) {
             Text(transaction.note?.nilIfEmpty ?? (isIncome ? "Income" : "Expense"))
                 .font(.body)

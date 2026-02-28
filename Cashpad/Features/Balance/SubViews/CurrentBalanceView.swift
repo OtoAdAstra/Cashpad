@@ -63,6 +63,6 @@ final class CurrentBalanceView: UIView {
     // MARK: - Config
     
     func configure(balance: Double, currency: String){
-        balanceLabel.text = "\(currency)\(BalanceFormatter.format(balance))"
+        balanceLabel.text = "\(currency)\(String(format: "%.2f", balance))"
     }
 }

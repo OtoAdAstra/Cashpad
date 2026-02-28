@@ -141,133 +141,12 @@ final class AccountsViewModel: ObservableObject {
     // MARK: - Spending Trend
     func totalSpendingTrend() -> SpendingTrend {
         guard let cdAccounts = try? repository.fetchAccounts() else { return .same }
-
-        let calendar = Calendar.current
-        let now = Date()
-        let currentMonthInterval = calendar.dateInterval(of: .month, for: now)
-
-        var monthlySpend: [DateComponents: Double] = [:]
-
-        for cdAccount in cdAccounts {
-            let transactions = (cdAccount.transactions as? Set<Transaction>) ?? []
-            for transaction in transactions {
-                let amount = transaction.amount
-                guard amount < 0 else { continue }
-
-                let transactionDate = transaction.date ?? now
-                let components = calendar.dateComponents([.year, .month], from: transactionDate)
-                monthlySpend[components, default: 0] += -amount
-            }
-        }
-
-        var thisMonthSpend: Double = 0
-        if let interval = currentMonthInterval {
-            for cdAccount in cdAccounts {
-                let transactions = (cdAccount.transactions as? Set<Transaction>) ?? []
-                for transaction in transactions {
-                    let amount = transaction.amount
-                    guard amount < 0 else { continue }
-                    if let transactionDate = transaction.date, interval.contains(transactionDate) {
-                        thisMonthSpend += -amount
-                    }
-                }
-            }
-        }
-
-        let historicalMonths = monthlySpend.filter { components, _ in
-            if let year = components.year, let month = components.month,
-               let currentYear = calendar.dateComponents([.year], from: now).year,
-               let currentMonth = calendar.dateComponents([.month], from: now).month {
-                return !(year == currentYear && month == currentMonth)
-            }
-            return true
-        }
-
-        let averageMonthly: Double = {
-            let spends = Array(historicalMonths.values)
-            guard !spends.isEmpty else { return 0 }
-            let total = spends.reduce(0, +)
-            return total / Double(spends.count)
-        }()
-
-        let tolerance = max(averageMonthly, thisMonthSpend) * 0.05
-        let diff = thisMonthSpend - averageMonthly
-
-        if abs(diff) <= tolerance {
-            return .same
-        } else if diff > 0 {
-            return .higher
-        } else {
-            return .lower
-        }
+        return SpendingTrendCalculator.totalTrend(for: cdAccounts)
     }
 
     func spendingTrendsByAccount() -> [UUID: SpendingTrend] {
-        var result: [UUID: SpendingTrend] = [:]
-
-        guard let cdAccounts = try? repository.fetchAccounts() else { return result }
-
-        let calendar = Calendar.current
-        let now = Date()
-        let currentMonthInterval = calendar.dateInterval(of: .month, for: now)
-
-        for cdAccount in cdAccounts {
-            let accountId = cdAccount.id ?? UUID()
-            let transactions = (cdAccount.transactions as? Set<Transaction>) ?? []
-
-            var monthlySpend: [DateComponents: Double] = [:]
-            for transaction in transactions {
-                let amount = transaction.amount
-                guard amount < 0 else { continue }
-
-                let transactionDate = transaction.date ?? now
-                let components = calendar.dateComponents([.year, .month], from: transactionDate)
-                monthlySpend[components, default: 0] += -amount
-            }
-
-            var thisMonthSpend: Double = 0
-            if let interval = currentMonthInterval {
-                for transaction in transactions {
-                    let amount = transaction.amount
-                    guard amount < 0 else { continue }
-                    if let transactionDate = transaction.date, interval.contains(transactionDate) {
-                        thisMonthSpend += -amount
-                    }
-                }
-            }
-
-            let historicalMonths = monthlySpend.filter { components, _ in
-                if let year = components.year, let month = components.month,
-                   let currentYear = calendar.dateComponents([.year], from: now).year,
-                   let currentMonth = calendar.dateComponents([.month], from: now).month {
-                    return !(year == currentYear && month == currentMonth)
-                }
-                return true
-            }
-
-            let averageMonthly: Double = {
-                let spends = Array(historicalMonths.values)
-                guard !spends.isEmpty else { return 0 }
-                let total = spends.reduce(0, +)
-                return total / Double(spends.count)
-            }()
-
-            let tolerance = max(averageMonthly, thisMonthSpend) * 0.05
-            let diff = thisMonthSpend - averageMonthly
-
-            let trend: SpendingTrend
-            if abs(diff) <= tolerance {
-                trend = .same
-            } else if diff > 0 {
-                trend = .higher
-            } else {
-                trend = .lower
-            }
-
-            result[accountId] = trend
-        }
-
-        return result
+        guard let cdAccounts = try? repository.fetchAccounts() else { return [:] }
+        return SpendingTrendCalculator.trendsByAccount(for: cdAccounts)
     }
 
     func spendingTrend(for account: AccountModel) -> SpendingTrend {
@@ -286,33 +165,12 @@ final class AccountsViewModel: ObservableObject {
             do {
                 let rates = try await exchangeRepository.getLatestRates(base: "USD")
 
-                func usdRate(_ code: String) -> Double? { rates.rates[code] }
-
-                var total: Double = 0
-                for account in accounts {
-                    let accountCurrency = account.currency
-                    let balance = account.balance
-
-                    if accountCurrency == selectedCurrency {
-                        total += balance
-                        continue
-                    }
-
-                    if accountCurrency == "USD" {
-                        if let usdToSelected = usdRate(selectedCurrency) {
-                            total += balance * usdToSelected
-                        }
-                    } else if selectedCurrency == "USD" {
-                        if let usdToAccount = usdRate(accountCurrency) {
-                            total += balance * (1.0 / usdToAccount)
-                        }
-                    } else {
-                        if let usdToAccount = usdRate(accountCurrency), let usdToSelected = usdRate(selectedCurrency) {
-                            let accountToUSD = 1.0 / usdToAccount
-                            let accountToSelected = accountToUSD * usdToSelected
-                            total += balance * accountToSelected
-                        }
-                    }
+                let total = accounts.reduce(0.0) { sum, account in
+                    sum + rates.convert(
+                        amount: account.balance,
+                        from: account.currency,
+                        to: selectedCurrency
+                    )
                 }
 
                 await MainActor.run {
