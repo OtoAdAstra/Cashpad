@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		5489170B2F53831A00B0FC5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 549D50492F0CAF8800833433 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 549D50502F0CAF8800833433;
+			remoteInfo = Cashpad;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		548917072F53831900B0FC5F /* CashpadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashpadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		549D50512F0CAF8800833433 /* Cashpad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cashpad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -14,6 +25,8 @@
 		549D50672F0CAF8A00833433 /* Exceptions for "Cashpad" folder in "Cashpad" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Configuration/API/Debug.xcconfig,
+				Configuration/API/Release.xcconfig,
 				Configuration/Info.plist,
 			);
 			target = 549D50502F0CAF8800833433 /* Cashpad */;
@@ -21,6 +34,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		548917082F53831A00B0FC5F /* CashpadTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CashpadTests;
+			sourceTree = "<group>";
+		};
 		549D50532F0CAF8800833433 /* Cashpad */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -32,6 +50,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		548917042F53831900B0FC5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		549D504E2F0CAF8800833433 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				549D50532F0CAF8800833433 /* Cashpad */,
+				548917082F53831A00B0FC5F /* CashpadTests */,
 				549D50522F0CAF8800833433 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				549D50512F0CAF8800833433 /* Cashpad.app */,
+				548917072F53831900B0FC5F /* CashpadTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +88,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		548917062F53831900B0FC5F /* CashpadTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5489170D2F53831A00B0FC5F /* Build configuration list for PBXNativeTarget "CashpadTests" */;
+			buildPhases = (
+				548917032F53831900B0FC5F /* Sources */,
+				548917042F53831900B0FC5F /* Frameworks */,
+				548917052F53831900B0FC5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5489170C2F53831A00B0FC5F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				548917082F53831A00B0FC5F /* CashpadTests */,
+			);
+			name = CashpadTests;
+			packageProductDependencies = (
+			);
+			productName = CashpadTests;
+			productReference = 548917072F53831900B0FC5F /* CashpadTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		549D50502F0CAF8800833433 /* Cashpad */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 549D50682F0CAF8A00833433 /* Build configuration list for PBXNativeTarget "Cashpad" */;
@@ -90,9 +140,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2620;
-				LastUpgradeCheck = 2620;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					548917062F53831900B0FC5F = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 549D50502F0CAF8800833433;
+					};
 					549D50502F0CAF8800833433 = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -113,11 +167,19 @@
 			projectRoot = "";
 			targets = (
 				549D50502F0CAF8800833433 /* Cashpad */,
+				548917062F53831900B0FC5F /* CashpadTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		548917052F53831900B0FC5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		549D504F2F0CAF8800833433 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +190,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		548917032F53831900B0FC5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		549D504D2F0CAF8800833433 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +206,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5489170C2F53831A00B0FC5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 549D50502F0CAF8800833433 /* Cashpad */;
+			targetProxy = 5489170B2F53831A00B0FC5F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		5489170E2F53831A00B0FC5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4J899GTP9G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adastra.CashpadTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cashpad.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cashpad";
+			};
+			name = Debug;
+		};
+		5489170F2F53831A00B0FC5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4J899GTP9G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adastra.CashpadTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cashpad.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cashpad";
+			};
+			name = Release;
+		};
 		549D50692F0CAF8A00833433 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = 549D50532F0CAF8800833433 /* Cashpad */;
@@ -249,6 +368,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4J899GTP9G;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -272,6 +392,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -314,6 +435,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4J899GTP9G;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -330,6 +452,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -338,6 +461,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5489170D2F53831A00B0FC5F /* Build configuration list for PBXNativeTarget "CashpadTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5489170E2F53831A00B0FC5F /* Debug */,
+				5489170F2F53831A00B0FC5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		549D504C2F0CAF8800833433 /* Build configuration list for PBXProject "Cashpad" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

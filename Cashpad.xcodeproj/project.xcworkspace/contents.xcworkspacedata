@@ -4,4 +4,103 @@
    <FileRef
       location = "self:">
    </FileRef>
+   <Group
+      location = "group:CashpadTests"
+      name = "CashpadTests">
+      <Group
+         location = "group:Models"
+         name = "Models">
+         <FileRef
+            location = "group:CurrencyTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:TransactionTypeTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:ExchangeRateTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:TransactionFilterTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SpendingTrendTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:AppThemeTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:AccountColorTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:AccountIconTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:AccountModelTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:GranularityTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:ExchangeRateResponseDTOTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:AccountRepositoryErrorTests.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Mocks"
+         name = "Mocks">
+         <FileRef
+            location = "group:MockAccountRepository.swift">
+         </FileRef>
+         <FileRef
+            location = "group:MockTransactionRepository.swift">
+         </FileRef>
+         <FileRef
+            location = "group:MockExchangeService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:MockExchangeRateCache.swift">
+         </FileRef>
+         <FileRef
+            location = "group:MockExchangeRepository.swift">
+         </FileRef>
+         <FileRef
+            location = "group:MockSecurityService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:MockThemeManager.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Services"
+         name = "Services">
+         <FileRef
+            location = "group:ExchangeRateCacheTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:ExchangeRepositoryTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SpendingTrendCalculatorTests.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Helpers"
+         name = "Helpers">
+         <FileRef
+            location = "group:CoreDataTestHelper.swift">
+         </FileRef>
+         <FileRef
+            location = "group:CalendarHelperTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:AuthentificationHelperTests.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:ViewModels"
+         name = "ViewModels">
+      </Group>
+   </Group>
 </Workspace>
